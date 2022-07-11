@@ -3,9 +3,9 @@ from email import message
 
 def solveSudoku(board):
 
-    verifier = verifier(board)
-    if verifier["result"] == False:
-        return verifier
+    verified = verifier(board)
+    if verified["result"] == False:
+        return verified
 
     [row, col] = getNext(0, 0, board)
     if not checker(row, col, board):
