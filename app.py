@@ -1,13 +1,13 @@
 from flask import Flask, request
 from solver import solveSudoku
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return '<h1>Hello World!</h1>'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['POST', 'GET'])
+@cross_origin()
 def solve():
     if request.method == "GET":
         return "SUDOKU SOLVER API"
@@ -20,12 +20,6 @@ def solve():
         }
         
         return answer
-
-@app.route("/test",methods=['POST'])
-def test():
-    data = request.get_json()
-    print(data)
-    return "OK"
 
 if __name__ == '__main__':
     app.run()
