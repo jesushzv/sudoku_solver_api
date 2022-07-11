@@ -1,3 +1,5 @@
+from email import message
+from unittest import result
 from flask import Flask, request
 from solver import solveSudoku
 from flask_cors import CORS, cross_origin
@@ -15,8 +17,8 @@ def solve():
         board = request.get_json()["board"]
         ans = solveSudoku(board)
         answer = {
-            "answer": ans if ans else board,
-            "message": "Solved!" if ans else "Not Solved!, Invalid Board"
+            "answer": ans["result"] if ans["result"] else board,
+            "message": ans["message"]
         }
         
         return answer

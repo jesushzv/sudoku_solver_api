@@ -1,12 +1,16 @@
+from email import message
+
+
 def solveSudoku(board):
 
-    if verifier(board) == False:
-        return False
+    verifier = verifier(board)
+    if verifier["result"] == False:
+        return verifier
 
     [row, col] = getNext(0, 0, board)
     if not checker(row, col, board):
-        return False
-    return board
+        return {"result":False,"message":"No solution found"}
+    return {"result":board,"message":"Solution found"}
 
 
 def checker(row, col, board):
@@ -95,27 +99,27 @@ def verifier(board):
 
     #Check board is an array of arrays
     if not isinstance(board, list):
-        return False
+        return {"result":False,"message":"Board is not an array"}
     for row in board:
         if not isinstance(row, list):
-            return False
+            return {"result":False,"message":"Board is not an array"}
         for col in row:
             if not isinstance(col, int):
-                return False
+                return {"result":False,"message":"Only integers are allowed"}
             if col < 0 or col > 9:
-                return False
+                return {"result":False,"message":"Only integers between 0 and 9 are allowed"}
 
     # Check if this is a 9x9 board
     if len(board) != 9:
-        return False
+        return {"result":False,"message":"Board is not a 9x9 array"}
     for row in board:
         if len(row) != 9:
-            return False
+            return {"result":False,"message":"Board is not a 9x9 array"}
 
     # Check if there are no negative or decimal numbers
     for row in board:
         for col in row:
             if col != int(col) or col < 0 or col > 9:
-                return False
+                return {"result":False,"message":"Only integers between 0 and 9 are allowed"}
 
-    return True
+    return {"result":True,"message":"Board is valid"}
