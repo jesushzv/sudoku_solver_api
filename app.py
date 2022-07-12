@@ -14,10 +14,15 @@ def solve():
     if request.method == "GET":
         return "SUDOKU SOLVER API"
     elif request.method == "POST":
-        board = request.get_json()["board"]
+        data = request.get_json()
+        if data is None:
+            return "No data provided"
+        elif data["board"] is None:
+            return "No board provided"
+        board = data.get_json()["board"]
         ans = solveSudoku(board)
         answer = {
-            "answer": ans["result"] if ans["result"] else board,
+            "answer": ans["result"] if ans["result"] != False else board,
             "message": ans["message"]
         }
         

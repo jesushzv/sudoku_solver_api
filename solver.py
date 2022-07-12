@@ -1,8 +1,4 @@
-from email import message
-
-
 def solveSudoku(board):
-
     verified = verifier(board)
     if verified["result"] == False:
         return verified
