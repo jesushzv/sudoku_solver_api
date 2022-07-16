@@ -19,7 +19,7 @@ def solve():
             return "No data provided"
         elif data["board"] is None:
             return "No board provided"
-        board = data.get_json()["board"]
+        board = data["board"]
         ans = solveSudoku(board)
         answer = {
             "answer": ans["result"] if ans["result"] != False else board,
